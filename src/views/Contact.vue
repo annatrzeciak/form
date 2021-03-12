@@ -89,10 +89,9 @@ export default {
     }
   }
   .contact-form-section {
-    margin-top: 130px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 968px;
+    margin: 130px auto;
+    max-width: 968px;
+    width: 100%;
   }
 }
 </style>
