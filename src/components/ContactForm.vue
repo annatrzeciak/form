@@ -1,14 +1,20 @@
 <template>
   <div class="contact-form">
-    <main-contact-view />
+    <div class="contact-form__header">
+      <slot name="header"></slot>
+    </div>
+    <div class="contact-form__content">
+      <slot name="content"></slot>
+    </div>
+    <div class="contact-form__footer">
+      <slot name="footer"></slot>
+    </div>
   </div>
 </template>
 
 <script>
-import MainContactView from './MainContactView'
 export default {
-  name: 'ContactForm',
-  components: { MainContactView }
+  name: 'ContactForm'
 }
 </script>
 
@@ -24,22 +30,26 @@ export default {
   @media (max-width: 720px) {
     padding: 25px;
   }
-}
-</style>
-<style lang="scss">
-.contact-form {
-  h2 {
+  &__header {
     text-align: center;
     color: #491989;
-    margin-bottom: 0;
-    font-size: 22px;
-  }
-  h3 {
-    margin-top: 0;
-    text-align: center;
-    color: #491989;
-    font-weight: 300;
-    font-size: 22px;
+
+    h2 {
+      margin-bottom: 0;
+      font-size: 22px;
+      font-weight: 300;
+    }
+
+    h3 {
+      margin-top: 0;
+      font-weight: 300;
+      font-size: 22px;
+    }
+    @media (max-width: 720px) {
+      h2,h3{
+        font-size: 18px;
+      }
+    }
   }
 }
 </style>

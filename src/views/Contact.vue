@@ -12,16 +12,16 @@
       </div>
     </header>
     <section class="contact-form-section">
-      <contact-form />
+      <main-contact-view />
     </section>
   </div>
 </template>
 
 <script>
-import ContactForm from '../components/ContactForm'
+import MainContactView from './MainContactView'
 export default {
   name: 'Contact',
-  components: { ContactForm }
+  components: { MainContactView }
 }
 </script>
 
@@ -66,7 +66,7 @@ export default {
         background-image: url("/top_bg1.jpeg");
         background-size: cover;
         background-position: center left;
-        @media (max-width: 968px) {
+        @media (max-width: 1100px) {
           display: flex;
           justify-content: center;
         }
@@ -74,7 +74,7 @@ export default {
           position: absolute;
           left: calc(50% - 210px);
           bottom: 50px;
-          @media (max-width: 968px) {
+          @media (max-width: 1100px) {
             position: static;
             margin-bottom: 50px;
             max-width: 90%;
@@ -85,6 +85,9 @@ export default {
         font-size: 65px;
         font-weight: normal;
         color: #fff;
+        @media (max-width: 678px) {
+          font-size: 50px;
+        }
       }
     }
   }
