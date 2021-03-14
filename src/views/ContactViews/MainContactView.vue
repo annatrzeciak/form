@@ -55,6 +55,9 @@ import ContactForm from "../../components/ContactForm";
 export default {
   name: "MainContactView",
   components: { ContactForm },
+  props: {
+    printilo: { type: Object, required: false, default: () => ({}) }
+  },
   data: function () {
     return {
       services: {
@@ -63,6 +66,13 @@ export default {
         printiloClothes: false
       }
     };
+  },
+  created () {
+    if (this.printilo) {
+      this.services.printiloCreate = this.printilo.printiloCreate;
+      this.services.printiloPhoto = this.printilo.printiloPhoto;
+      this.services.printiloClothes = this.printilo.printiloClothes;
+    }
   }
 };
 </script>

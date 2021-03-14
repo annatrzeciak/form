@@ -115,7 +115,8 @@ export default {
     }
   },
   props: {
-    services: { type: Object }
+    services: { type: Object, required: false, default: () => ({}) },
+    details: { type: Object, required: false, default: () => ({}) }
   },
   data: function () {
     return {
@@ -148,6 +149,14 @@ export default {
           this.sending = false;
         }
       }
+    }
+  },
+  created () {
+    if (this.details) {
+      this.form.name = this.details.name;
+      this.form.surname = this.details.surname;
+      this.form.phone = this.details.phone;
+      this.form.agree = this.details.agree;
     }
   }
 };

@@ -94,6 +94,9 @@ export default {
       }
     }
   },
+  props: {
+    details: { type: Object, required: false, default: () => ({}) }
+  },
   data: function () {
     return {
       form: {
@@ -110,6 +113,14 @@ export default {
       if (!this.$v.$invalid) {
         this.$emit("next", this.form);
       }
+    }
+  },
+  created () {
+    if (this.details) {
+      this.form.name = this.details.name;
+      this.form.surname = this.details.surname;
+      this.form.email = this.details.email;
+      this.form.agree = this.details.agree;
     }
   }
 };

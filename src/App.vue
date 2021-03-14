@@ -25,7 +25,7 @@ body {
   font-family: Roboto;
 }
 
-input[type="checkbox"] {
+input[type="checkbox"], input[type="radio"]{
   position: relative;
 
   &:before {
