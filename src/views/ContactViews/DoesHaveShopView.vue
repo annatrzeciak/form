@@ -81,6 +81,9 @@ export default {
     @media (max-width: 720px) {
       margin-top: 40px;
     }
+    label{
+      font-weight: bold;
+    }
   }
 }
 </style>

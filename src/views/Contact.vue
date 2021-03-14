@@ -12,8 +12,13 @@
       </div>
     </header>
     <section class="contact-form-section">
-      <does-have-shop-view
-        v-if="isDoesHaveShop"
+      <what-technology-view
+        v-if="isVisibleWhatTechnology"
+        :shop-technology="data['shop-technology']"
+        @next="openNextView"
+        @prev="openPrevView"
+      /><does-have-shop-view
+        v-else-if="isVisibleDoesHaveShop"
         :shop="data['has-shop']"
         @next="openNextView"
         @prev="openPrevView"
@@ -47,10 +52,12 @@ import CallMeView from "./ContactViews/CallMeView";
 import ThankYouView from "./ContactViews/ThankYouView";
 import MainInfoView from "./ContactViews/MainInfoView";
 import DoesHaveShopView from "./ContactViews/DoesHaveShopView";
+import WhatTechnologyView from "./ContactViews/WhatTechnologyView";
 
 export default {
   name: "Contact",
   components: {
+    WhatTechnologyView,
     DoesHaveShopView,
     MainInfoView,
     ThankYouView,
@@ -59,11 +66,12 @@ export default {
   },
   data: function () {
     return {
-      isDoesHaveShop: false,
+      isVisibleWhatTechnology: false,
+      isVisibleDoesHaveShop: false,
       isVisibleThankYou: false,
       isVisibleCallMeForm: false,
       isVisibleMainInfo: false,
-      services: [],
+      services: {},
       data: {}
     };
   },
@@ -71,19 +79,28 @@ export default {
     openNextView (data) {
       if (this.isVisibleMainInfo) {
         this.data["contact-details"] = data;
-        this.isDoesHaveShop = true;
+        this.isVisibleDoesHaveShop = true;
         this.isVisibleMainInfo = false;
-      } else if (this.isDoesHaveShop) {
+      } else if (this.isVisibleDoesHaveShop) {
         this.data["has-shop"] = data;
-        // this.isDoesHaveShop = false;
+        if (this.data["has-shop"]) {
+          this.isVisibleWhatTechnology = true;
+        }
+        this.isVisibleDoesHaveShop = false;
+      } else if (this.isVisibleWhatTechnology) {
+        this.data["shop-technology"] = data;
+        this.isVisibleWhatTechnology = false;
       }
     },
     openPrevView () {
       if (this.isVisibleMainInfo) {
         this.isVisibleMainInfo = false;
-      } else if (this.isDoesHaveShop) {
+      } else if (this.isVisibleDoesHaveShop) {
         this.isVisibleMainInfo = true;
-        this.isDoesHaveShop = false;
+        this.isVisibleDoesHaveShop = false;
+      } else if (this.isVisibleWhatTechnology) {
+        this.isVisibleWhatTechnology = false;
+        this.isVisibleDoesHaveShop = true;
       }
     },
     showDescribeForm (services) {

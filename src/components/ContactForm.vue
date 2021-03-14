@@ -154,7 +154,6 @@ export default {
         height: 48px;
         background: #f5f5f5;
         border-radius: 5px;
-        font-weight: bold;
         font-size: 15px;
         margin-bottom: 20px;
         display: flex;
