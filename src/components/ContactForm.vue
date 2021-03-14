@@ -35,34 +35,37 @@ export default {
     padding: 25px;
     height: auto;
   }
-  &__header {
+  h2 {
+    margin-bottom: 0;
+    font-size: 22px;
+    font-weight: 300;
     text-align: center;
     color: #491989;
+  }
 
-    h2 {
-      margin-bottom: 0;
-      font-size: 22px;
-      font-weight: 300;
-    }
-
+  h3 {
+    margin-top: 0;
+    font-weight: 300;
+    font-size: 22px;
+    text-align: center;
+    color: #491989;
+  }
+  @media (max-width: 720px) {
+    h2,
     h3 {
-      margin-top: 0;
-      font-weight: 300;
-      font-size: 22px;
-    }
-    @media (max-width: 720px) {
-      h2,
-      h3 {
-        font-size: 18px;
-      }
+      font-size: 18px;
     }
   }
   &__content {
     margin-top: 35px;
-    .error{
+    .error {
       color: red;
       font-size: 12px;
       font-style: italic;
+      @media (max-width: 720px) {
+        display: inline-block;
+        width: 100%;
+      }
     }
     label {
       width: 100%;
@@ -82,11 +85,12 @@ export default {
         box-sizing: border-box;
         padding: 10px;
         font-size: 15px;
-        &.input--error{
+        &.input--error {
           border: 1px solid red;
-
         }
-        &:focus{ outline-color: #491989}
+        &:focus {
+          outline-color: #491989;
+        }
       }
       textarea {
         height: 88px;
@@ -111,9 +115,8 @@ export default {
           left: calc(50% - 8px);
           top: calc(50% - 8px);
         }
-        &.input--error:before{
-          border-color: red ;
-
+        &.input--error:before {
+          border-color: red;
         }
       }
     }

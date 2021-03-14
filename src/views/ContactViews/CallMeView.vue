@@ -9,7 +9,9 @@
           </h2>
         </template>
         <template v-slot:content>
-          <h4 class="error" v-if="sendingError">Wystąpił błąd podczas wysyłania, spróbuj ponownie później.</h4>
+          <h4 class="error" v-if="sendingError">
+            Wystąpił błąd podczas wysyłania, spróbuj ponownie później.
+          </h4>
           <label>
             Imię (wymagane)
             <span
@@ -41,7 +43,8 @@
             <span
               class="error"
               v-else-if="$v.form.phone.$error && !$v.form.phone.phoneRegex"
-              >Poprawny format numeru telefonu to 123-456-789, 123 456 789 lub 123456789.</span
+              >Poprawny format numeru telefonu to 123-456-789, 123 456 789 lub
+              123456789.</span
             >
             <input
               v-model="form.phone"
@@ -59,11 +62,6 @@
               :class="[{ 'input--error': $v.form.agree.$error }]"
             />
             <span>
-               <span
-                 class="error"
-                 v-if="$v.form.agree.$error && !$v.form.agree.checked"
-               >Zgoda jest wymagana <br></span
-               >
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -71,8 +69,15 @@
               reprehenderit in voluptate velit esse cillum dolore eu fugiat
               nulla pariatur. Excepteur sint occaecat cupidatat non proident,
               sunt in culpa qui officia deserunt mollit anim id est laborum.
+              <span
+                class="error"
+                v-if="$v.form.agree.$error && !$v.form.agree.checked"
+                ><br />Zgoda jest wymagana
+              </span>
             </span>
-            <button :disabled="sending" type="submit">{{sending? 'WYSYŁANIE...':'WYŚLIJ'}}</button>
+            <button :disabled="sending" type="submit">
+              {{ sending ? "WYSYŁANIE..." : "WYŚLIJ" }}
+            </button>
           </label>
         </template>
       </contact-form>
@@ -131,7 +136,10 @@ export default {
         this.sending = true;
         this.sendingError = null;
         try {
-          await axios.post("/api/contact", { services: this.services, "contact-details": this.form });
+          await axios.post("/api/contact", {
+            services: this.services,
+            "contact-details": this.form
+          });
           this.$emit("form-sent");
         } catch (e) {
           console.error(e);
@@ -152,6 +160,24 @@ export default {
       width: 100%;
       max-width: 218px;
       margin-right: 0;
+    }
+    @media (max-width: 968px) {
+      label.contact-form__agree {
+        display: inline-block;
+        input {
+          float: left;
+          width: 6px;
+        }
+        span {
+          display: inline-block;
+          width: calc(100% - 43px);
+        }
+      }
+      button {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+      }
     }
   }
 }

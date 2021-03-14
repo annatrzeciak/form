@@ -12,7 +12,8 @@
       </div>
     </header>
     <section class="contact-form-section">
-      <call-me-view v-if="isVisibleCallMeForm" @form-sent="formSent" :services="services"/>
+      <thank-you-view v-if="isVisibleThankYou"/>
+      <call-me-view v-else-if="isVisibleCallMeForm" @form-sent="formSent" :services="services"/>
       <main-contact-view v-else @show-call-me-form="showCallMeForm"/>
     </section>
   </div>
@@ -21,15 +22,18 @@
 <script>
 import MainContactView from "./ContactViews/MainContactView";
 import CallMeView from "./ContactViews/CallMeView";
+import ThankYouView from "./ContactViews/ThankYouView";
 
 export default {
   name: "Contact",
   components: {
+    ThankYouView,
     CallMeView,
     MainContactView
   },
   data: function () {
     return {
+      isVisibleThankYou: false,
       isVisibleCallMeForm: false,
       services: []
     };
@@ -40,7 +44,8 @@ export default {
       this.isVisibleCallMeForm = true;
     },
     formSent () {
-      console.log("form-sent");
+      this.isVisibleThankYou = true;
+      this.isVisibleCallMeForm = false;
     }
   }
 };
