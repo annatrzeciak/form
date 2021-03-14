@@ -14,21 +14,26 @@
 
 <script>
 export default {
-  name: 'ContactForm'
-}
+  name: "ContactForm"
+};
 </script>
 
 <style scoped lang="scss">
 .contact-form {
   border: 1px solid #491989;
-  border-radius: 3px;
-  padding: 50px;
+  border-radius: 5px;
+  padding: 35px 57px;
+  min-height: 704px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   @media (max-width: 968px) {
     margin-right: 20px;
     margin-left: 20px;
   }
   @media (max-width: 720px) {
     padding: 25px;
+    height: auto;
   }
   &__header {
     text-align: center;
@@ -46,9 +51,95 @@ export default {
       font-size: 22px;
     }
     @media (max-width: 720px) {
-      h2,h3{
+      h2,
+      h3 {
         font-size: 18px;
       }
+    }
+  }
+  &__content {
+    margin-top: 35px;
+    .error{
+      color: red;
+      font-size: 12px;
+      font-style: italic;
+    }
+    label {
+      width: 100%;
+      font-size: 15px;
+      color: #000000;
+      cursor: pointer;
+
+      input[type="text"],
+      input[type="email"],
+      textarea {
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 22px;
+        border-radius: 5px;
+        border: 1px solid #b4b4b4;
+        height: 48px;
+        box-sizing: border-box;
+        padding: 10px;
+        font-size: 15px;
+        &.input--error{
+          border: 1px solid red;
+
+        }
+        &:focus{ outline-color: #491989}
+      }
+      textarea {
+        height: 88px;
+        font-family: Roboto;
+      }
+
+      input[type="checkbox"] {
+        display: inline-block;
+        width: 26px;
+        height: 12px;
+
+        &:before {
+          border-radius: 5px;
+          height: 22px;
+          width: 22px;
+        }
+
+        &:checked:after {
+          border-radius: 3px;
+          height: 14px;
+          width: 14px;
+          left: calc(50% - 8px);
+          top: calc(50% - 8px);
+        }
+        &.input--error:before{
+          border-color: red ;
+
+        }
+      }
+    }
+
+    label.contact-form__agree {
+      box-sizing: border-box;
+      padding-left: 5px;
+      font-size: 12px;
+      font-style: italic;
+      color: #959595;
+      line-height: 20px;
+      display: flex;
+      & > span {
+        padding-left: 10px;
+      }
+    }
+  }
+  &__footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    button {
+      width: 214px;
+      margin-right: 0;
+      margin-left: 0;
     }
   }
 }

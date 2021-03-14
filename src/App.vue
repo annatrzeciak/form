@@ -5,16 +5,16 @@
 </template>
 
 <script>
-import Contact from './views/Contact'
+import Contact from "./views/Contact";
 
 export default {
-  name: 'App',
+  name: "App",
   components: { Contact }
-}
+};
 </script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,300&display=swap");
 
 body {
   margin: 0;
@@ -33,11 +33,11 @@ input[type="checkbox"] {
     height: 25px;
     width: 25px;
     content: "";
-    border-radius: 50%;
     border: 1px solid #b4b4b4;
     display: block;
     background: #fff;
     position: absolute;
+    border-radius: 50%;
     left: calc(50% - 12px);
     top: calc(50% - 12px);
   }
@@ -51,10 +51,10 @@ input[type="checkbox"] {
       height: 15px;
       width: 15px;
       content: "";
-      border-radius: 50%;
       display: block;
       background: #491989;
       position: absolute;
+      border-radius: 50%;
       left: calc(50% - 7px);
       top: calc(50% - 7px);
     }
@@ -64,7 +64,7 @@ input[type="checkbox"] {
 button {
   border-style: solid;
   height: 48px;
-  border-radius: 3px;
+  border-radius: 5px;
   box-sizing: border-box;
   font-size: 15px;
   color: #fff;
@@ -83,6 +83,17 @@ button {
   &:hover {
     background: #fff;
     color: #491989;
+  }
+  &:focus{
+    outline-color: #491989;
+  }
+  &.outline {
+    background: #fff;
+    color: #491989;
+    &:hover {
+      background: #491989;
+      color: #fff;
+    }
   }
 }
 </style>
