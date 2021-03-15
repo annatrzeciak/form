@@ -4,10 +4,17 @@
       <contact-form>
         <template v-slot:header>
           <h2>
-            <strong
+            <strong v-if="data['has-shop']"
               >Chcielibyśmy wiedzieć jakie produkty
               <br />
               masz zamiar personalizować w swoim sklepie.
+            </strong>
+            <strong v-else
+              >Czyli myślisz o założeniu sklepu? <br />Doskonale trafiłeś!<br />To
+              nasza specjalność. Skontaktujemy się z Tobą najszybciej jak to
+              możliwe.
+              <br />
+              Powiedz nam jeszcze jaki asortyment Cię interesuje.
             </strong>
           </h2>
           <div class="error">
@@ -120,7 +127,7 @@ export default {
         "next",
         this.selectedAssortment.map(item => ({
           key: item.key,
-          label: item.value
+          label: item.label
         }))
       );
     }

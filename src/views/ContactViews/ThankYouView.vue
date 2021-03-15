@@ -8,12 +8,7 @@
             alt="Thank you"
             title="Thank for your details"
           />
-          <h2>
-            <strong>Dziękujemy za wysłanie<br>oraz przesłanie formularza.</strong>
-          </h2>
-          <h3>
-            Wkrótce skontaktujemy się z Tobą,<br>w celu omówienia szczegółów.
-          </h3>
+          <slot name="header"></slot>
           <button @click="redirectToHome">Wróć do strony głównej</button>
         </div>
       </template>
@@ -41,27 +36,21 @@ export default {
 <style lang="scss" scoped>
 .contact-form {
   &--thank-you-view {
-     .message {
+    .message {
       display: flex;
       justify-content: center;
       align-items: center;
-       flex-direction: column;
-       height: 100%;
-       margin-right: auto;
-       margin-left: auto;
+      flex-direction: column;
+      height: 100%;
+      margin-right: auto;
+      margin-left: auto;
       button {
         width: 214px;
       }
-       img{
-         margin-top: 72px;
-         margin-bottom: 45px;
-       }
-       h2{
-         margin-bottom: 28px;
-       }
-       h3{
-         margin-bottom: 85px;
-       }
+      img {
+        margin-top: 72px;
+        margin-bottom: 45px;
+      }
     }
   }
 }

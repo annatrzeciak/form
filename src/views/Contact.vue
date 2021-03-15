@@ -12,8 +12,24 @@
       </div>
     </header>
     <section class="contact-form-section">
+      <thank-you-view v-if="isVisibleThankForFinishedForm">
+        <template v-slot:header>
+          <h2>
+            <strong
+              >{{ data["contact-details"].name }}, Świetna robota! <br
+            /></strong>
+          </h2>
+          <h3>Skontaktujemy się z Tobą.</h3>
+        </template>
+      </thank-you-view>
+      <more-details-view
+        v-else-if="isVisibleMoreDetails"
+        :data="data"
+        @next="openNextView"
+        @prev="openPrevView"
+      />
       <assortment-view
-        v-if="isVisibleAssortment"
+        v-else-if="isVisibleAssortment"
         :data="data"
         @next="openNextView"
         @prev="openPrevView"
@@ -35,7 +51,18 @@
         @next="openNextView"
         @prev="openPrevView"
       />
-      <thank-you-view v-else-if="isVisibleThankYou" />
+      <thank-you-view v-else-if="isVisibleThankYou">
+        <template v-slot:header>
+          <h2>
+            <strong
+              >Dziękujemy za wysłanie<br />oraz przesłanie formularza.</strong
+            >
+          </h2>
+          <h3>
+            Wkrótce skontaktujemy się z Tobą,<br />w celu omówienia szczegółów.
+          </h3>
+        </template>
+      </thank-you-view>
       <call-me-view
         v-else-if="isVisibleCallMeForm"
         :data="data"
@@ -59,10 +86,12 @@ import MainInfoView from "./ContactViews/MainInfoView";
 import DoesHaveShopView from "./ContactViews/DoesHaveShopView";
 import WhatTechnologyView from "./ContactViews/WhatTechnologyView";
 import AssortmentView from "./ContactViews/AssortmentView";
+import MoreDetailsView from "./ContactViews/MoreDetailsView";
 
 export default {
   name: "Contact",
   components: {
+    MoreDetailsView,
     AssortmentView,
     WhatTechnologyView,
     DoesHaveShopView,
@@ -96,7 +125,7 @@ export default {
       return this.step === 5;
     },
     isVisibleThankForFinishedForm () {
-      return this.step === 5;
+      return this.step === 6;
     }
   },
   methods: {
@@ -124,12 +153,11 @@ export default {
         this.data["shop-technology"] = null;
       } else if (this.isVisibleAssortment) {
         this.data["shop-assortment"] = null;
-        this.isVisibleAssortment = false;
         if (!this.data["has-shop"]) {
           this.step--;
         }
-        this.step--;
       }
+      this.step--;
     },
     showDescribeForm (services) {
       this.data.services = services;
@@ -223,6 +251,14 @@ export default {
     margin: 130px auto;
     max-width: 968px;
     width: 100%;
+  }
+  .contact-form--thank-you-view {
+    h2 {
+      margin-bottom: 28px;
+    }
+    h3 {
+      margin-bottom: 85px;
+    }
   }
 }
 </style>
