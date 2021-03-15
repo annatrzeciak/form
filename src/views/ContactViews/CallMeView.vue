@@ -137,14 +137,14 @@ export default {
         this.sending = true;
         this.sendingError = null;
         try {
-          await axios.post("/api/contact", {
+          await axios.post(`${process.env.VUE_APP_API_URL}/contact`, {
             services: this.services,
             "contact-details": this.form
           });
           this.$emit("form-sent");
         } catch (e) {
           console.error(e);
-          this.sendingError = e;
+          this.sendingError = e.message;
         } finally {
           this.sending = false;
         }
