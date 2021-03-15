@@ -56,7 +56,7 @@ export default {
   name: "MainContactView",
   components: { ContactForm },
   props: {
-    printilo: { type: Object, required: false, default: () => ({}) }
+    data: { type: Object }
   },
   data: function () {
     return {
@@ -68,10 +68,8 @@ export default {
     };
   },
   created () {
-    if (this.printilo) {
-      this.services.printiloCreate = this.printilo.printiloCreate;
-      this.services.printiloPhoto = this.printilo.printiloPhoto;
-      this.services.printiloClothes = this.printilo.printiloClothes;
+    if (this.data.services) {
+      this.services = this.data.services;
     }
   }
 };

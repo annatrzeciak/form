@@ -95,7 +95,7 @@ export default {
     }
   },
   props: {
-    details: { type: Object, required: false, default: () => ({}) }
+    data: { type: Object }
   },
   data: function () {
     return {
@@ -116,11 +116,11 @@ export default {
     }
   },
   created () {
-    if (this.details) {
-      this.form.name = this.details.name;
-      this.form.surname = this.details.surname;
-      this.form.email = this.details.email;
-      this.form.agree = this.details.agree;
+    if (this.data["contact-details"]) {
+      this.form.name = this.data["contact-details"].name;
+      this.form.surname = this.data["contact-details"].surname;
+      this.form.email = this.data["contact-details"].email;
+      this.form.agree = this.data["contact-details"].agree;
     }
   }
 };

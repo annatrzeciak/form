@@ -58,7 +58,14 @@ export default {
       font-size: 18px;
     }
   }
-
+  &__header {
+    .error {
+      height: 19px;
+      text-align: center;
+      color: red;
+      margin-top: 6px;
+    }
+  }
   &__content {
     margin-top: 35px;
 
@@ -144,7 +151,8 @@ export default {
       }
     }
 
-    .radios {
+    .radios,
+    .checkboxes {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -163,7 +171,15 @@ export default {
         box-sizing: border-box;
         position: relative;
 
-        input[type="radio"] {
+        input[type="checkbox"] {
+          &:before {
+            border-radius: 50%;
+          }
+          &:after {
+            border-radius: 50%;
+          }
+        }
+        input[type="radio"], input[type="checkbox"] {
           &:before {
             height: 20px;
             width: 20px;

@@ -9,7 +9,16 @@
               W jakiej technologii wykonano sklep?
             </strong>
           </h2>
-          <div class="great">
+          <div class="error" v-if="submitError && !shop">
+            {{
+              addressIsEmpty
+                ? "Wpisz adress, aby przejść dalej"
+                : anotherIsEmpty
+                ? "Wpisz nazwę, aby przejść dalej"
+                : "Zaznacz odpowiedź, aby przejść dalej"
+            }}
+          </div>
+          <div class="great" v-else>
             {{
               isSelectedPrestaShop
                 ? "Super!"
@@ -91,7 +100,7 @@ export default {
   name: "WhatTechnologyView",
   components: { ContactForm },
   props: {
-    shopTechnology: { type: String }
+    data: { type: Object }
   },
   data: function () {
     return {
@@ -99,7 +108,8 @@ export default {
       another: "",
       anotherIsEmpty: false,
       address: "",
-      addressIsEmpty: false
+      addressIsEmpty: false,
+      submitError: false
     };
   },
   computed: {
@@ -132,31 +142,37 @@ export default {
       if (this.isSelectedAnother) {
         if (!this.another.length) {
           this.anotherIsEmpty = true;
+          this.submitError = true;
           return;
         }
       }
       if (this.isSelectedDontKnow) {
         if (!this.address.length) {
           this.addressIsEmpty = true;
+          this.submitError = true;
           return;
         }
+      }
+      if (!this.shop) {
+        this.submitError = true;
+        return;
       }
       this.$emit("next", this.technology);
     }
   },
   created () {
-    if (this.shopTechnology && this.shopTechnology.shop) {
+    if (this.data["shop-technology"] && this.data["shop-technology"].shop) {
       if (
         !["dontKnow", "PrestaShop", "WooCommerce"].includes(
-          this.shopTechnology.shop
+          this.data["shop-technology"].shop
         )
       ) {
         this.shop = "another";
-        this.another = this.shopTechnology.shop;
+        this.another = this.data["shop-technology"].shop;
       } else {
-        this.shop = this.shopTechnology.shop;
-        if (this.shopTechnology.address) {
-          this.address = this.shopTechnology.address;
+        this.shop = this.data["shop-technology"].shop;
+        if (this.data["shop-technology"].address) {
+          this.address = this.data["shop-technology"].address;
         }
       }
     }
@@ -177,6 +193,9 @@ export default {
     text-align: center;
     color: #ff8730;
     margin-top: 35px;
+  }
+  .error {
+    margin-bottom: 29px;
   }
   .radios {
     margin-top: 0;

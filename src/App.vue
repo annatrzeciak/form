@@ -41,6 +41,9 @@ input[type="checkbox"], input[type="radio"]{
     left: calc(50% - 12px);
     top: calc(50% - 12px);
   }
+  &:focus:before{
+    border-color: #491989;
+  }
 
   &:checked {
     &:before {

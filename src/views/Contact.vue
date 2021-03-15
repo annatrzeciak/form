@@ -12,33 +12,38 @@
       </div>
     </header>
     <section class="contact-form-section">
+      <assortment-view
+        v-if="isVisibleAssortment"
+        :data="data"
+        @next="openNextView"
+        @prev="openPrevView"
+      />
       <what-technology-view
-        v-if="isVisibleWhatTechnology"
-        :shop-technology="data['shop-technology']"
+        v-else-if="isVisibleWhatTechnology"
+        :data="data"
         @next="openNextView"
         @prev="openPrevView"
       /><does-have-shop-view
         v-else-if="isVisibleDoesHaveShop"
-        :shop="data['has-shop']"
+        :data="data"
         @next="openNextView"
         @prev="openPrevView"
       />
       <main-info-view
         v-else-if="isVisibleMainInfo"
-        :details="data['contact-details']"
+        :data="data"
         @next="openNextView"
         @prev="openPrevView"
       />
       <thank-you-view v-else-if="isVisibleThankYou" />
       <call-me-view
         v-else-if="isVisibleCallMeForm"
-        :services="services"
-        :details="data['contact-details']"
+        :data="data"
         @form-sent="formSent"
       />
       <main-contact-view
         v-else
-        :printilo="services"
+        :data="data"
         @start-describe="showDescribeForm"
         @show-call-me-form="showCallMeForm"
       />
@@ -53,10 +58,12 @@ import ThankYouView from "./ContactViews/ThankYouView";
 import MainInfoView from "./ContactViews/MainInfoView";
 import DoesHaveShopView from "./ContactViews/DoesHaveShopView";
 import WhatTechnologyView from "./ContactViews/WhatTechnologyView";
+import AssortmentView from "./ContactViews/AssortmentView";
 
 export default {
   name: "Contact",
   components: {
+    AssortmentView,
     WhatTechnologyView,
     DoesHaveShopView,
     MainInfoView,
@@ -66,49 +73,70 @@ export default {
   },
   data: function () {
     return {
-      isVisibleWhatTechnology: false,
-      isVisibleDoesHaveShop: false,
+      step: 0,
       isVisibleThankYou: false,
       isVisibleCallMeForm: false,
-      isVisibleMainInfo: false,
-      services: {},
       data: {}
     };
+  },
+  computed: {
+    isVisibleMainInfo () {
+      return this.step === 1;
+    },
+    isVisibleDoesHaveShop () {
+      return this.step === 2;
+    },
+    isVisibleWhatTechnology () {
+      return this.step === 3;
+    },
+    isVisibleAssortment () {
+      return this.step === 4;
+    },
+    isVisibleMoreDetails () {
+      return this.step === 5;
+    },
+    isVisibleThankForFinishedForm () {
+      return this.step === 5;
+    }
   },
   methods: {
     openNextView (data) {
       if (this.isVisibleMainInfo) {
         this.data["contact-details"] = data;
-        this.isVisibleDoesHaveShop = true;
-        this.isVisibleMainInfo = false;
       } else if (this.isVisibleDoesHaveShop) {
         this.data["has-shop"] = data;
-        if (this.data["has-shop"]) {
-          this.isVisibleWhatTechnology = true;
+        if (!this.data["has-shop"]) {
+          this.step++;
         }
-        this.isVisibleDoesHaveShop = false;
       } else if (this.isVisibleWhatTechnology) {
         this.data["shop-technology"] = data;
-        this.isVisibleWhatTechnology = false;
+      } else if (this.isVisibleAssortment) {
+        this.data["shop-assortment"] = data;
       }
+      this.step++;
     },
     openPrevView () {
       if (this.isVisibleMainInfo) {
-        this.isVisibleMainInfo = false;
+        this.data["contact-details"] = null;
       } else if (this.isVisibleDoesHaveShop) {
-        this.isVisibleMainInfo = true;
-        this.isVisibleDoesHaveShop = false;
+        this.data["has-shop"] = null;
       } else if (this.isVisibleWhatTechnology) {
-        this.isVisibleWhatTechnology = false;
-        this.isVisibleDoesHaveShop = true;
+        this.data["shop-technology"] = null;
+      } else if (this.isVisibleAssortment) {
+        this.data["shop-assortment"] = null;
+        this.isVisibleAssortment = false;
+        if (!this.data["has-shop"]) {
+          this.step--;
+        }
+        this.step--;
       }
     },
     showDescribeForm (services) {
-      this.services = services;
-      this.isVisibleMainInfo = true;
+      this.data.services = services;
+      this.step++;
     },
     showCallMeForm (services) {
-      this.services = services;
+      this.data.services = services;
       this.isVisibleCallMeForm = true;
     },
     formSent () {

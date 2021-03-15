@@ -9,6 +9,13 @@
               sklep internetowy?</strong
             >
           </h2>
+          <div class="error">
+            {{
+              submitError && hasShop === undefined
+                ? "Zaznacz odpowiedź, aby przejść dalej"
+                : ""
+            }}
+          </div>
         </template>
         <template v-slot:content>
           <div class="radios">
@@ -48,21 +55,26 @@ export default {
   name: "DoesHaveShopView",
   components: { ContactForm },
   props: {
-    shop: { type: Boolean }
+    data: { type: Object }
   },
   data: function () {
     return {
-      hasShop: true
+      hasShop: undefined,
+      submitError: false
     };
   },
   methods: {
     async submit () {
+      if (this.hasShop === undefined) {
+        this.submitError = true;
+        return;
+      }
       this.$emit("next", this.hasShop);
     }
   },
   created () {
-    if (this.shop !== undefined) {
-      this.hasShop = this.shop;
+    if (this.data["has-shop"] !== undefined) {
+      this.hasShop = this.data["has-shop"];
     }
   }
 };
@@ -77,11 +89,11 @@ export default {
     }
   }
   .radios {
-    margin-top: 85px;
+    margin-top: 60px;
     @media (max-width: 720px) {
       margin-top: 40px;
     }
-    label{
+    label {
       font-weight: bold;
     }
   }

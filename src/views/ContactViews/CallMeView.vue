@@ -115,8 +115,7 @@ export default {
     }
   },
   props: {
-    services: { type: Object, required: false, default: () => ({}) },
-    details: { type: Object, required: false, default: () => ({}) }
+    data: { type: Object }
   },
   data: function () {
     return {
@@ -127,7 +126,8 @@ export default {
         agree: false
       },
       sending: false,
-      sendingError: null
+      sendingError: null,
+      services: []
     };
   },
   methods: {
@@ -152,11 +152,19 @@ export default {
     }
   },
   created () {
-    if (this.details) {
-      this.form.name = this.details.name;
-      this.form.surname = this.details.surname;
-      this.form.phone = this.details.phone;
-      this.form.agree = this.details.agree;
+    if (this.data["contact-details"]) {
+      this.form.name = this.data["contact-details"].name
+        ? this.data["contact-details"].name
+        : "";
+      this.form.surname = this.data["contact-details"].surname
+        ? this.data["contact-details"].surname
+        : "";
+      this.form.phone = this.data["contact-details"].phone
+        ? this.data["contact-details"].phone
+        : "";
+    }
+    if (this.data.services) {
+      this.services = this.data.services;
     }
   }
 };
