@@ -4,7 +4,10 @@
       <contact-form>
         <template v-slot:header>
           <h2>
-            <strong>Czy chciałbyś dodać jeszcze coś od siebie?</strong>
+            <strong
+              >Czy {{ isWomen ? "chciałabyś" : "chciałbyś" }} dodać jeszcze coś
+              od siebie?</strong
+            >
           </h2>
           <div v-if="sendingError" class="error">{{ sendingError }}</div>
         </template>
@@ -63,6 +66,14 @@ export default {
       sendingError: "",
       sending: false
     };
+  },
+  computed: {
+    isWomen () {
+      const name = this.data["contact-details"].name;
+      return ["a", "ą", "e", "ę", "i", "o", "u", "y"].includes(
+        name[name.length - 1]
+      );
+    }
   },
   methods: {
     async submit () {
